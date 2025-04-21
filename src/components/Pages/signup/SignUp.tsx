@@ -10,7 +10,7 @@ import PhoneInput from '@/components/Input/PhoneInput';
 import { InferType } from 'yup';
 import FormCheckbox from '@/components/Checkbox/Checkbox';
 import SelectInput from '@/components/Select/Select';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/store/hooks';
 import { signup } from '@/store/slices/sessionSlice';
 
