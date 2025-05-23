@@ -24,6 +24,7 @@ export const signup = createAsyncThunk(
   'session/signup',
   async (formData: SignupPayload, { rejectWithValue }): Promise<any> => {
     try {
+      console.log(formData);
       const response: SignupResponse =
         await authServiceInstance.signup(formData);
       return response;
@@ -37,6 +38,7 @@ export const signin = createAsyncThunk(
   'session/signin',
   async (formData: SigninPayload, { rejectWithValue }): Promise<any> => {
     try {
+      console.log(formData);
       const response: SignupResponse =
         await authServiceInstance.signin(formData);
       return response;

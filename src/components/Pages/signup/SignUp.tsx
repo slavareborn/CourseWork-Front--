@@ -38,16 +38,19 @@ const SignUp = () => {
   const onSubmit = async (data: FormData) => {
     // eslint-disable-next-line no-console
     console.log('Form submitted:', data);
-    const sanitazedData = {...data, location: data.city, phone: data.phone.replace(/\D/g, "")}
-    const res = await dispatch(signup(sanitazedData))
-    if (res.meta.requestStatus === "rejected") {
+    const sanitazedData = {
+      ...data,
+      location: data.city,
+      phone: data.phone.replace(/\D/g, ''),
+    };
+    const res = await dispatch(signup(sanitazedData));
+    if (res.meta.requestStatus === 'rejected') {
       const payLoad = res.payload as string;
       if (payLoad) {
-        formProps.setError("email", {type: "server", message: payLoad})
+        formProps.setError('email', { type: 'server', message: payLoad });
       }
-    }
-    else if (res.meta.requestStatus === "fulfilled") {
-      router.push("/profile")
+    } else if (res.meta.requestStatus === 'fulfilled') {
+      router.push('/profile');
     }
   };
 

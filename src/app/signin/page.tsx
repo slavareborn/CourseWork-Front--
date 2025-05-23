@@ -1,14 +1,15 @@
-import { signup } from '@/store/slices/sessionSlice';
+import SignIn from '@/components/Pages/signin/SignIn';
 import Link from 'next/link';
 import React from 'react';
 
 const page = () => {
   return (
-    <div>
+    <main>
+      <SignIn />
       <p>
-        If you don't have account, please <Link href="/signup">SignUp</Link>
+        Якщо у вас немає акаунту <Link href="/signup">зареєструйтесь</Link>
       </p>
-    </div>
+    </main>
   );
 };
 
