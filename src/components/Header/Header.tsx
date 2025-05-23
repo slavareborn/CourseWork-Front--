@@ -1,6 +1,5 @@
-import { link } from 'fs';
-import Link from 'next/link';
 import React from 'react';
+import { StyledLink, StyledList, StyledNav } from './styled';
 const navMenuConfig = [
   {
     title: 'Home',
@@ -10,15 +9,15 @@ const navMenuConfig = [
 ];
 const Header = () => {
   return (
-    <nav>
-      <ul>
+    <StyledNav>
+      <StyledList>
         {navMenuConfig.map((item) => (
           <li key={item.title}>
-            <Link href={item.link}>{item.title}</Link>
+            <StyledLink href={item.link}>{item.title}</StyledLink>
           </li>
         ))}
-      </ul>
-    </nav>
+      </StyledList>
+    </StyledNav>
   );
 };
 
