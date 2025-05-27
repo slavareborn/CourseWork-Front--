@@ -6,9 +6,6 @@ const page = () => {
   return (
     <main>
       <SignIn />
-      <p>
-        Якщо у вас немає акаунту <Link href="/signup">зареєструйтесь</Link>
-      </p>
     </main>
   );
 };

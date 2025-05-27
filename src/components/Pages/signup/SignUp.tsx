@@ -13,6 +13,12 @@ import SelectInput from '@/components/Select/Select';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/store/hooks';
 import { signup } from '@/store/slices/sessionSlice';
+import {
+  StyledFormInput,
+  StyledLink,
+  StyledSignUp,
+  StyledForm,
+} from './styled';
 
 type FormData = InferType<typeof schemaSignUp>;
 
@@ -38,16 +44,24 @@ const SignUp = () => {
   const onSubmit = async (data: FormData) => {
     // eslint-disable-next-line no-console
     console.log('Form submitted:', data);
-    const sanitazedData = {
+    const temp = {
       ...data,
       location: data.city,
-      phone: data.phone.replace(/\D/g, ''),
+      phone: '+' + data.phone.replace(/\D/g, ''),
     };
+    const { confirmPassword: _, ...sanitazedData } = temp;
     const res = await dispatch(signup(sanitazedData));
     if (res.meta.requestStatus === 'rejected') {
       const payLoad = res.payload as string;
       if (payLoad) {
-        formProps.setError('email', { type: 'server', message: payLoad });
+        if (payLoad.toLowerCase().includes('email')) {
+          formProps.setError('email', { type: 'server', message: payLoad });
+        } else if (payLoad.toLowerCase().includes('phone')) {
+          formProps.setError('phone', { type: 'server', message: payLoad });
+        } else {
+          // Якщо не можемо визначити конкретне поле, показуємо помилку на email
+          formProps.setError('email', { type: 'server', message: payLoad });
+        }
       }
     } else if (res.meta.requestStatus === 'fulfilled') {
       router.push('/profile');
@@ -55,12 +69,14 @@ const SignUp = () => {
   };
 
   return (
-    <section>
+    <StyledSignUp>
       <FormProvider {...formProps}>
-        <form onSubmit={formProps.handleSubmit(onSubmit)}>
-          <Typography>Вітаємо на сайті для записів до лікарів</Typography>
+        <StyledForm onSubmit={formProps.handleSubmit(onSubmit)}>
+          <Typography variant="h4">
+            Вітаємо на сайті для записів до лікарів
+          </Typography>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <FormInput
               name="firstName"
               placeholder="Вкажіть ім'я"
@@ -69,7 +85,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <FormInput
               name="lastName"
               placeholder="Вкажіть прізвище"
@@ -78,7 +94,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <FormInput
               name="age"
               placeholder="Вкажіть вік"
@@ -87,7 +103,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <FormInput
               name="sex"
               placeholder="Вкажіть стать"
@@ -96,7 +112,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <SelectInput
               name="city"
               placeholder="Вкажіть місто"
@@ -106,8 +122,8 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
-            <FormInput
+          <Box sx={{ width: '100%', mb: 2 }}>
+            <StyledFormInput
               name="email"
               placeholder="Вкажіть email"
               label="Email"
@@ -115,7 +131,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <PhoneInput
               name="phone"
               placeholder="+380(XX)XXXXXXX"
@@ -124,8 +140,8 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
-            <FormInput
+          <Box sx={{ width: '100%', mb: 2 }}>
+            <StyledFormInput
               type="password"
               name="password"
               placeholder="Введіть пароль"
@@ -134,8 +150,8 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
-            <FormInput
+          <Box sx={{ width: '100%', mb: 2 }}>
+            <StyledFormInput
               type="password"
               name="confirmPassword"
               placeholder="Підтвердіть пароль"
@@ -144,7 +160,7 @@ const SignUp = () => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ width: '100%', mb: 2 }}>
             <FormCheckbox
               name="agreedToTerms"
               // type="checkbox"
@@ -156,9 +172,13 @@ const SignUp = () => {
           <Button type="submit" variant="contained" sx={{ mt: 2 }}>
             Зареєструватись
           </Button>
-        </form>
+          <Typography>
+            Вже маєте акаунт?
+            <StyledLink href="/signin">Увійдіть</StyledLink>
+          </Typography>
+        </StyledForm>
       </FormProvider>
-    </section>
+    </StyledSignUp>
   );
 };
 
