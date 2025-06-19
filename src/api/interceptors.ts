@@ -1,6 +1,6 @@
-import sniffApiInstance from './';
+import ApiInstance from './';
 
-sniffApiInstance.interceptors.request.use(
+ApiInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -13,7 +13,7 @@ sniffApiInstance.interceptors.request.use(
   },
 );
 
-sniffApiInstance.interceptors.response.use(
+ApiInstance.interceptors.response.use(
   async (response) => {
     return response;
   },
@@ -26,4 +26,4 @@ sniffApiInstance.interceptors.response.use(
   },
 );
 
-export default sniffApiInstance;
+export default ApiInstance;

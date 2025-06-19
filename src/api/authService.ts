@@ -1,6 +1,6 @@
 import { SigninPayload, SignupPayload } from '@/types';
 import ApiService from './abstractApiService';
-import sniffApiInstance from './interceptors';
+import ApiInstance from './interceptors';
 import { ENDPOINT } from '../constants/constants';
 interface ApiErrorResponse {
   response: {
@@ -12,7 +12,7 @@ interface ApiErrorResponse {
 
 class AuthService extends ApiService {
   constructor() {
-    super(sniffApiInstance);
+    super(ApiInstance);
   }
 
   async signup(data: SignupPayload): Promise<any> {
@@ -61,8 +61,8 @@ class AuthService extends ApiService {
 
   /**
    * GET запрос с поддержкой токена для авторизации.
-   * @param endpoint - API-эндпоинт.
-   * @param token - Токен авторизации.
+   * @param endpoint
+   * @param token
    */
   async get<T = any>(
     endpoint: string,

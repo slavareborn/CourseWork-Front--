@@ -18,13 +18,16 @@ const EmailConfirmationContent = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = async () => {
+    console.log(token, 1)
     const response = await dispatch(confirmEmail(token as string));
     if (response.payload.isEmailConfirmed) {
+      console.log(response.payload, 1)
       router.push('/');
     }
   };
 
   useEffect(() => {
+    console.log(token, 1)
     if (token) {
       const userInfo = decodeToken(token);
       setUser(userInfo);

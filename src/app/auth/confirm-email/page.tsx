@@ -1,7 +1,7 @@
 import React from 'react';
 import MainContent from '@/components/MainComponent/MainComponent';
 import { StyledBox, StyledSection } from './styled';
-import EmailConfirmation from '@/components/emailConfirmation/emailConfirmation';
+import EmailConfirmation from '@/components/emailConfirmation/EmailConfirmation';
 import { Container } from '@mui/material';
 
 const ConfirmEmail = () => {

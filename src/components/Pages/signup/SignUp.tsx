@@ -19,6 +19,7 @@ import {
   StyledSignUp,
   StyledForm,
 } from './styled';
+import GoogleIcon from '@/assets/Icons/GoogleIcon';
 
 type FormData = InferType<typeof schemaSignUp>;
 
@@ -176,6 +177,13 @@ const SignUp = () => {
             Вже маєте акаунт?
             <StyledLink href="/signin">Увійдіть</StyledLink>
           </Typography>
+          <Button
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/proxy/auth/google`}
+          >
+            Авторизуватися через Google
+          </Button>
         </StyledForm>
       </FormProvider>
     </StyledSignUp>
